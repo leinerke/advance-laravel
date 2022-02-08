@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -14,6 +15,8 @@ class ProductControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->actingAs(User::factory()->create());
     }
 
     public function test_index()
