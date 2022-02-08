@@ -15,7 +15,6 @@ class ProductControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
         $this->actingAs(User::factory()->create());
     }
 
@@ -26,7 +25,7 @@ class ProductControllerTest extends TestCase
         $response = $this->getJson('/api/products');
         $response->assertSuccessful();
         $response->assertHeader('content-type', 'application/json');
-        $response->assertJsonCount(5);
+        $response->assertJsonCount(5, 'data');
     }
 
     public function test_create_new_product()
@@ -61,7 +60,7 @@ class ProductControllerTest extends TestCase
         $response = $this->getJson("/api/products/$product->id");
         $response->assertSuccessful();
         $response->assertHeader('content-type', 'application/json');
-        $this->assertEquals($product->name, $response->json('name'));
+        $this->assertEquals($product->name, $response->json('data')['name']);
     }
 
     public function test_delete_product()
